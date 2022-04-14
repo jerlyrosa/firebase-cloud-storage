@@ -1,13 +1,20 @@
-import { ChangeEvent, FormEvent, SyntheticEvent, useEffect, useState } from 'react';
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { app } from './config/firebase';
+import './app.css';
+import 'bulma/css/bulma.min.css';
+import FooterUI from './footer';
+
+
 
 function App() {
 
-  const [archivoUrl, setArchivoUrl] = useState<string>()
-  const [docs, setDocs] = useState<[]>([])
+  const [archivoUrl, setArchivoUrl] = useState<string>();
+  const [archivoName, setArchivoName] = useState<string>();
 
-  // console.log(docs)
-  //TIPOS
+  const [docs, setDocs] = useState<[]>([]);
+
+
+  console.log(docs)
   type InputElemnt = ChangeEvent<HTMLInputElement>;
 
   interface DataDb {
@@ -17,11 +24,10 @@ function App() {
   }
 
 
-
-
   const archivoHandler = async (event: InputElemnt): Promise<void> => {
 
     const archivo = event.target.files![0];
+    setArchivoName(archivo.name)
     const storageRef = app.storage().ref();
     const archivoPath = storageRef.child(archivo.name)
     await archivoPath.put(archivo)
@@ -53,10 +59,9 @@ function App() {
 
     const coleccionRef = app.firestore().collection("archivos");
 
-    const doc = await coleccionRef.doc(nombreArchivo).set({ nombre: nombreArchivo, url: archivoUrl })
+    await coleccionRef.doc(nombreArchivo).set({ nombre: nombreArchivo, url: archivoUrl })
     console.log(`Archivo cargado ${nombreArchivo}`)
     window.location.href = "/";
-
   }
 
 
@@ -73,29 +78,53 @@ function App() {
 
 
   return (
-    <section>
-      <form onSubmit={submitHandler}>
-        <input type="file" onChange={archivoHandler} />
-        <input type="text" name="nombre" placeholder='nombra tu archivio' />
-        <button>Enviar</button>
-      <h1>{ process.env.TZ} s</h1>
-      </form>
+    <main>
 
-      <ul>
-        {docs.map((doc: DataDb, index) => {
+      <section className="contenedor">
 
-          console.log(doc.nombre)
+        <h1>Subir archivos a Cloud Storage</h1>
+        <form onSubmit={submitHandler} className="formStyles">
 
-          return (
-            <li key={index}>
-              <h3>{doc.nombre}</h3>
-              <img src={doc.url} height="100px" width="100px" />
-            </li>
+          <div className="file is-large  has-name is-boxed">
+            <label className="file-label">
+              <input className="file-input" type="file" onChange={archivoHandler} name="resume" />
+              <span className="file-cta">
+                <span className="file-label">
+                  Choose a file…
+                </span>
+              </span>
+              <span className="file-name">
+                {archivoName}
+              </span>
+            </label>
+          </div>
+          <input type="text" className='input' name="nombre" placeholder='nombra tu archivio' />
+
+          <button>Enviar</button>
+        </form>
+
+        <ul className="contenedorUl">
+
+          {docs.length > 0 ? (
+            docs.map((doc: DataDb, index) => {
+              return (
+                <li key={index}>
+                  <h3>{doc.nombre}</h3>
+                  <p className="download">URL de descarga: <a href={doc.url} rel="noreferrer" target="_blank">Descargar</a></p>
+                </li>
+              )
+            })
+          ) : (
+            <h2>Cargando...</h2>
           )
-        })}
+          }
 
-      </ul>
-    </section>
+        </ul>
+
+      </section>
+      <FooterUI />
+
+    </main>
   );
 }
 

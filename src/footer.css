@@ -1,0 +1,30 @@
+.container {
+  background: #f5f5f5;
+  /* color: white; */
+  padding: 2rem 1rem;
+  width: 100%;
+}
+.socialBox {
+  max-height: 8rem;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  gap: 0.7rem;
+}
+
+.line {
+  color: white;
+    
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient( to right, rgba(17, 12, 12, 0), rgb(45 43 43 / 75%), rgba(0, 0, 0, 0) );
+
+
+
+}
+
+.container  a{
+    color:#111827;
+}
+
+
