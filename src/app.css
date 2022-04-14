@@ -1,9 +1,10 @@
 .contenedor {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  height: 87vh;
+  min-height: 88.5vh;
+  max-width: 140rem;
+  margin: 0 auto;
 }
 
 .formStyles {
@@ -19,6 +20,14 @@
   list-style: none;
   padding: 3rem 1.5rem;
   justify-content: center;
+}
+.contenedorUl h3 {
+  padding: 1.5rem 0;
+}
+
+.contenedorUl > li {
+  max-width: 31rem;
+  min-width: 31rem;
 }
 
 .download {
@@ -38,4 +47,3 @@ a {
     grid-template-columns: 100%;
   }
 }
-

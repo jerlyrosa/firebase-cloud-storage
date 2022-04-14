@@ -2,7 +2,6 @@ import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
 import { app } from './config/firebase';
 import './app.css';
 import 'bulma/css/bulma.min.css';
-import FooterUI from './footer';
 
 
 
@@ -122,7 +121,6 @@ function App() {
         </ul>
 
       </section>
-      <FooterUI />
 
     </main>
   );
