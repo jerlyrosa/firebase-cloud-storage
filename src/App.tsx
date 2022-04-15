@@ -1,4 +1,4 @@
-import {  SyntheticEvent, useEffect, useState } from 'react';
+import {  useEffect, useState } from 'react';
 import { app } from './config/firebase';
 import './app.css';
 import 'bulma/css/bulma.min.css';
@@ -6,16 +6,19 @@ import { IconCloud } from './icons/icons';
 import { getStorage, ref, deleteObject } from "firebase/storage";
 import { useAddStorage } from './hooks/useAddDocsStorage';
 import { modelData } from './interface/interface';
-
+import { useAddFirebase } from './hooks/useAddDocsFirebase';
 
 
 
 function App() {
 
  const [fileUrl, fileNanme, AddStorag] = useAddStorage();
+
+ const [setAddUrl, addFirebase ] = useAddFirebase();
   const [docs, setDocs] = useState<object[]>([]);
 
-
+useEffect(()=>( setAddUrl(fileUrl)),[fileUrl])
+  
   // interface DataDb {
   //   readonly id: string,
   //   data: {
@@ -48,31 +51,31 @@ function App() {
 
 
 
-  const submitHandler = async (e: SyntheticEvent): Promise<void> => {
+  // const submitHandler = async (e: SyntheticEvent): Promise<void> => {
 
 
-    e.preventDefault();
+  //   e.preventDefault();
     
-    const target = e.target as typeof e.target & {
-      nombre: { value: string };
-    };
-    const nombreArchivo: string = !target.nombre?.value ? "Default Title" : target.nombre.value
+  //   const target = e.target as typeof e.target & {
+  //     nombre: { value: string };
+  //   };
+  //   const nombreArchivo: string = !target.nombre?.value ? "Default Title" : target.nombre.value
     
-    // console.log(nombreArchivo)
-    // if (!nombreArchivo) {
+  //   // console.log(nombreArchivo)
+  //   // if (!nombreArchivo) {
 
-    //   alert('Coloca un nombre')
-    //   return
-    // }
+  //   //   alert('Coloca un nombre')
+  //   //   return
+  //   // }
 
 
-    const coleccionRef = app.firestore().collection("archivos");
+  //   const coleccionRef = app.firestore().collection("archivos");
 
-    await coleccionRef.add({ name: nombreArchivo, url: fileUrl })
+  //   await coleccionRef.add({ name: nombreArchivo, url: fileUrl })
 
-    console.log(`Archivo cargado ${nombreArchivo}`)
-    // window.location.href = "/";
-  }
+  //   console.log(`Archivo cargado ${nombreArchivo}`)
+  //   // window.location.href = "/";
+  // }
 
 
 
@@ -139,7 +142,7 @@ function App() {
           <IconCloud />
         </div>
         <h1>Upload File to Cloud Storage</h1>
-        <form onSubmit={submitHandler} className="formStyles">
+        <form onSubmit={addFirebase} className="formStyles">
 
           <div className="file is-large  has-name is-boxed">
             <label className="file-label">
@@ -154,7 +157,7 @@ function App() {
               </span>
             </label>
           </div>
-          <input type="text" className='input' defaultValue="" name="nombre" placeholder='name your file' />
+          <input type="text" className='input' defaultValue="" name="name" placeholder='name your file' />
 
           <button>Send</button>
         </form>
