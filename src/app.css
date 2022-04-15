@@ -41,6 +41,9 @@ a {
   text-decoration: underline;
   color: #ffffff;
 }
+.svgStyles {
+  margin: 2rem 0;
+}
 
 @media (max-width: 768px) {
   .formStyles {
