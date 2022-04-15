@@ -1,0 +1,28 @@
+[debug] [2022-04-15T01:00:19.539Z] ----------------------------------------------------------------------
+[debug] [2022-04-15T01:00:19.541Z] Command:       /home/jerly/.nvm/versions/node/v14.17.6/bin/node /home/jerly/.nvm/versions/node/v14.17.6/bin/firebase deploy
+[debug] [2022-04-15T01:00:19.541Z] CLI Version:   10.6.0
+[debug] [2022-04-15T01:00:19.541Z] Platform:      linux
+[debug] [2022-04-15T01:00:19.541Z] Node Version:  v14.17.6
+[debug] [2022-04-15T01:00:19.542Z] Time:          Thu Apr 14 2022 21:00:19 GMT-0400 (hora estándar del Atlántico)
+[debug] [2022-04-15T01:00:19.542Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-04-15T01:00:19.598Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-04-15T01:00:19.598Z] > authorizing via signed-in user (jerlymigueldelarosah@gmail.com)
+[debug] [2022-04-15T01:00:19.598Z] [iam] checking project fir-storage-9d162 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2022-04-15T01:00:19.600Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions [none]
+[debug] [2022-04-15T01:00:19.600Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-04-15T01:00:20.776Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions 200
+[debug] [2022-04-15T01:00:20.777Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-04-15T01:00:20.778Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 [none]
+[debug] [2022-04-15T01:00:22.155Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 200
+[debug] [2022-04-15T01:00:22.155Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 {"projectId":"fir-storage-9d162","projectNumber":"341556277320","displayName":"firebase-storage","name":"projects/fir-storage-9d162","resources":{"hostingSite":"fir-storage-9d162","storageBucket":"fir-storage-9d162.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'fir-storage-9d162'...
+[info] 
+[info] i  deploying storage, firestore, hosting 
+[debug] [2022-04-15T01:00:22.163Z] >>> [apiv2][query] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 [none]
+[debug] [2022-04-15T01:00:23.525Z] <<< [apiv2][status] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 200
+[debug] [2022-04-15T01:00:23.525Z] <<< [apiv2][body] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 {"name":"apps/fir-storage-9d162","id":"fir-storage-9d162","authDomain":"gmail.com","locationId":"us-central","codeBucket":"staging.fir-storage-9d162.appspot.com","servingStatus":"SERVING","defaultHostname":"fir-storage-9d162.uc.r.appspot.com","defaultBucket":"fir-storage-9d162.appspot.com","serviceAccount":"fir-storage-9d162@appspot.gserviceaccount.com","gcrDomain":"us.gcr.io","databaseType":"CLOUD_FIRESTORE","featureSettings":{"splitHealthChecks":true,"useContainerOptimizedOs":true}}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2022-04-15T01:00:23.529Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [none]
+[debug] [2022-04-15T01:00:23.529Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [omitted]

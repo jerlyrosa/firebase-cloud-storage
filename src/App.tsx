@@ -1,53 +1,50 @@
-import { ChangeEvent, SyntheticEvent, useEffect, useState } from 'react';
+import {  SyntheticEvent, useEffect, useState } from 'react';
 import { app } from './config/firebase';
 import './app.css';
 import 'bulma/css/bulma.min.css';
 import { IconCloud } from './icons/icons';
-// import cloud from './cloud.png';
 import { getStorage, ref, deleteObject } from "firebase/storage";
+import { useAddStorage } from './hooks/useAddDocsStorage';
+import { modelData } from './interface/interface';
+
+
 
 
 function App() {
 
-  const [archivoUrl, setArchivoUrl] = useState<string>();
-  const [archivoName, setArchivoName] = useState<string>();
-
+ const [fileUrl, fileNanme, AddStorag] = useAddStorage();
   const [docs, setDocs] = useState<object[]>([]);
-  const [loanding, setLoanding] = useState<boolean>(false);
+
+
+  // interface DataDb {
+  //   readonly id: string,
+  //   data: {
+  //     name: string,
+  //     url: string
+  //   }
+
+
+  // }
+
+
+  // const archivoHandler = async (event: InputElemnt): Promise<void> => {
+
+  //   const archivo = event.target.files![0];
+  //   setArchivoName(archivo.name)
+  //   const storageRef = app.storage().ref();
+
+  //   const archivoPath = storageRef.child(archivo.name)
+  //   await archivoPath.put(archivo)
 
 
 
-  type InputElemnt = ChangeEvent<HTMLInputElement>;
-// otro lado
-  interface DataDb {
-    readonly id: string,
-    data: {
-      name: string,
-      url: string
-    }
+  //   // console.log(uploadTask.state.)
+  //   console.log(`Archivo cargado ${archivo.name}`)
+  //   const enlaceUrl: string = await archivoPath.getDownloadURL()
 
+  //   setArchivoUrl(enlaceUrl)
 
-  }
-
-
-  const archivoHandler = async (event: InputElemnt): Promise<void> => {
-
-    const archivo = event.target.files![0];
-    setArchivoName(archivo.name)
-    const storageRef = app.storage().ref();
-
-    const archivoPath = storageRef.child(archivo.name)
-    await archivoPath.put(archivo)
-
-
-
-    // console.log(uploadTask.state.)
-    console.log(`Archivo cargado ${archivo.name}`)
-    const enlaceUrl: string = await archivoPath.getDownloadURL()
-
-    setArchivoUrl(enlaceUrl)
-
-  }
+  // }
 
 
 
@@ -71,7 +68,7 @@ function App() {
 
     const coleccionRef = app.firestore().collection("archivos");
 
-    await coleccionRef.add({ name: nombreArchivo, url: archivoUrl })
+    await coleccionRef.add({ name: nombreArchivo, url: fileUrl })
 
     console.log(`Archivo cargado ${nombreArchivo}`)
     // window.location.href = "/";
@@ -146,14 +143,14 @@ function App() {
 
           <div className="file is-large  has-name is-boxed">
             <label className="file-label">
-              <input className="file-input" type="file" onChange={archivoHandler} name="resume" />
+              <input className="file-input" type="file" onChange={(e)=>AddStorag(e)} name="resume" />
               <span className="file-cta">
                 <span className="file-label">
                   Choose a file…
                 </span>
               </span>
               <span className="file-name">
-                {archivoName}
+                {fileNanme}
               </span>
             </label>
           </div>
@@ -173,7 +170,7 @@ function App() {
                   url
                 }
 
-              } = doc as DataDb
+              } = doc as modelData
               // console.log(name)
               return (
                 <li key={index}>
