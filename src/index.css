@@ -36,15 +36,15 @@ footer {
   max-width: 100% !important;
 }
 
-button {
+.generalBotton {
   background-color: #111827;
   border: 1px solid transparent;
-  border-radius: 0.75rem;
+  border-radius: 0.5rem;
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
   flex: 0 0 auto;
-  font-size: 1.125rem;
+  font-size: 1.3rem;
   font-weight: 600;
   line-height: 1.5rem;
   padding: 0.75rem 1.2rem;
@@ -60,11 +60,11 @@ button {
   width: auto;
 }
 
-button:hover {
+.generalBotton:hover {
   background-color: #374151;
 }
 
-button:focus {
+.generalBotton:focus {
   box-shadow: none;
   outline: 2px solid white;
   outline-offset: 2px;

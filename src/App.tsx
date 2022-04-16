@@ -1,25 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './app.css';
 import 'bulma/css/bulma.min.css';
 import { IconCloud } from './icons/icons';
 import { useMethodStorage } from './hooks/useMethodStorage';
 import { modelData } from './interface/interface';
 import { useMethodFirebase } from './hooks/useMethodFirebase';
-
+import { useModal } from './hooks/useModal';
 
 
 function App() {
 
   const { fileUrl, fileNanme, AddStorage } = useMethodStorage();
 
-  const { addFirebase, updateName, deleteDocCompled, setAddUrl, docsData } = useMethodFirebase();
+  const { addFirebase, deleteDocCompled, setAddUrl, docsData } = useMethodFirebase();
 
-  
-  useEffect(() => setAddUrl(fileUrl), [fileUrl]);
+  useEffect(() => setAddUrl(fileUrl), [fileUrl,setAddUrl]);
 
-
-
-
+  const { ModalView, openModal } = useModal()
 
 
   return (
@@ -44,42 +41,47 @@ function App() {
               </span>
             </label>
           </div>
-          <input type="text" className='input' defaultValue="" name="name" placeholder='name your file' />
+          <input type="text" className='input is-medium' defaultValue="" name="name" placeholder='name your file' />
 
-          <button>Send</button>
+          <button className="generalBotton">Send</button>
+
         </form>
+        <ModalView />
+
 
         <ul className="contenedorUl">
 
-          {docsData.length >= 1 ? (
-            docsData.map((doc: object, index: number) => {
-              const {
-                id,
-                data: {
-                  name,
-                  url
-                }
+          {docsData !== undefined ? (
 
-              } = doc as modelData
-              console.log(url)
-              return (
-                <li key={index}>
-                  <h3>{name}</h3>
-                  <p className="download">Download URL: <a href={url} rel="noreferrer" target="_blank">Download</a></p>
-                  <button onClick={() => updateName(id)} className='button-update'>Update Title</button>
-                  <button onClick={() => deleteDocCompled(id, url)} className='button-delete'>Delete</button>
+            docsData.length !== 0 ? (
 
-                </li>
+              docsData.map((doc: object, index: number) => {
+                const {
+                  id,
+                  data: {
+                    name,
+                    url
+                  }
+
+                } = doc as modelData
+                return (
+                  <li key={index}>
+                    <h3>{name}</h3>
+                    <p className="download">Download URL: <a href={url} rel="noreferrer" target="_blank">Download</a></p>
+                    <button onClick={() => openModal(id)} className='updateBotton'>Update Title</button>
+                    <button onClick={() => deleteDocCompled(id, url)} className='deleteBotton'>Delete</button>
+                  </li>
+                )
+              }
+
               )
-            })
-          ) :
-            // docs.length === 0  ?(
-            //   <h2>No data</h2>
-            // ):
-            (
-              <h2>Loading...</h2>
 
-            )
+            ) : (<h2>There are no files in the Cloud 🦧 </h2>)
+
+          ) : (
+            <h2>Loading...</h2>
+
+          )
           }
 
         </ul>

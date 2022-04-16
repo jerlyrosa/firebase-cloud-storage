@@ -34,7 +34,7 @@
   background: #f5f5f5;
   color: #4a4a4a;
   padding: 10px 20px;
-  margin-bottom: 20px;
+  margin-bottom: 3rem;
 }
 
 a {
@@ -44,6 +44,69 @@ a {
 .svgStyles {
   margin: 2rem 0;
 }
+
+
+.updateBotton {
+  background-color: #111827;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  padding: 0.75rem 1.2rem;
+  text-align: center;
+  text-decoration: none #6b7280 solid;
+  text-decoration-thickness: auto;
+  transition-duration: 0.2s;
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  margin: 0 1rem;
+}
+
+.updateBotton:hover {
+  background-color: #707680;
+}
+
+
+.deleteBotton {
+  background-color: #111827;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  padding: 0.75rem 1.2rem;
+  text-align: center;
+  text-decoration: none #6b7280 solid;
+  text-decoration-thickness: auto;
+  transition-duration: 0.2s;
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  margin: 0 1rem;
+}
+
+.deleteBotton:hover {
+  background-color: #b31818;
+  /* color: #111827; */
+
+}
+
 
 @media (max-width: 768px) {
   .formStyles {

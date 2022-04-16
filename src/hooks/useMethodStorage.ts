@@ -3,9 +3,8 @@ import {
   ref,
   uploadBytes,
   getDownloadURL,
-  deleteObject,
 } from "firebase/storage";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent,  useState } from "react";
 
 
 type InputElemnt = ChangeEvent<HTMLInputElement>;
@@ -41,24 +40,23 @@ export const useMethodStorage = () => {
     console.log("Uploaded a blob or file!");
   };
 
-  const deleteStorageFile = (url: string) => {
-    console.log(url);
-    const desertRef = ref(storage, url);
-    deleteObject(desertRef)
-      .then(() => {
-        console.log("File deleted successfully");
-      })
-      .catch((error) => {
-        console.log("Uh-oh, an error occurred!", error);
-      });
-  };
+  // const deleteStorageFile = (url: string) => {
+  //   const desertRef = ref(storage, url);
+  //   deleteObject(desertRef)
+  //     .then(() => {
+  //       console.log("File deleted successfully");
+  //     })
+  //     .catch((error) => {
+  //       console.log("Uh-oh, an error occurred!", error);
+  //     });
+  // };
 
   return {
     fileUrl,
     fileNanme,
     AddStorage,
     storage,
-    deleteStorageFile,
+    // deleteStorageFile,
   } as const;
 };
 

@@ -8,14 +8,11 @@ import {
 } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { db } from "../config/firebaseV2";
-import { useMethodStorage } from "./useMethodStorage";
 
 export const useMethodFirebase = () => {
   const [addUrl, setAddUrl] = useState<string>("");
-  const { deleteStorageFile } = useMethodStorage();
-  const [docsData, setDocsData] = useState<object[]>([]);
+  const [docsData, setDocsData] = useState<object[] | undefined>(undefined);
 
-  // const getDataDoc =()=>{
   useEffect(() => {
     onSnapshot(collection(db, "archivos"), (doc) => {
       const data = doc.docs.map((doc) => [doc.id, doc.data()]);
@@ -28,11 +25,11 @@ export const useMethodFirebase = () => {
       );
       setDocsData(docdata);
     });
-  }, []);
-  // }
+  }, [setAddUrl]);
 
   const addFirebase = async (e: SyntheticEvent): Promise<void> => {
     e.preventDefault();
+
     const target = e.target as typeof e.target & {
       name: { value: string };
     };
@@ -40,35 +37,59 @@ export const useMethodFirebase = () => {
       ? "Default Title"
       : target.name.value;
 
-    await addDoc(collection(db, "archivos"), {
-      name: nameFile,
-      url: addUrl,
-    })
-      .then(() => {
-        console.log("File available");
+    if (addUrl) {
+      await addDoc(collection(db, "archivos"), {
+        name: nameFile,
+        url: addUrl,
       })
-      .catch((error) => {
-        console.error("Upload failed", error);
-      });
-    //   console.log("Document written with ID: ", docRef.id);
+        .then(() => {
+          console.log("File available");
+        })
+        .catch((error) => {
+          console.error("Upload failed", error);
+        });
+    } else if (nameFile !== "Default Title") {
+      alert("Se esta cargando");
+    } else {
+      alert("Add a file");
+    }
   };
 
-  const updateName = async (id: string): Promise<void> => {
-    const washingtonRef = doc(db, "archivos", id);
+  const updateName = async (id: string, data: string): Promise<void> => {
+    console.log(data);
 
-    await updateDoc(washingtonRef, {
-      name: "Default",
-    })
-      .then(() => {
-        console.log("File updated");
+    if (data.length > 0 && data.trim() !== "") {
+      const washingtonRef = doc(db, "archivos", id);
+      await updateDoc(washingtonRef, {
+        name: data,
       })
-      .catch((error) => {
-        console.error("Updated failed", error);
-      });
+        .then(() => {
+          console.log("File updated");
+        })
+        .catch((error) => {
+          console.error("Updated failed", error);
+        });
+    }
   };
+
+  // const GetInput=(e: SyntheticEvent):any =>{
+
+  // }
+  // GetInput(da)
+
+  //   await updateDoc(washingtonRef, {
+  //     name: "Default",
+  //   })
+  //     .then(() => {
+  //       console.log("File updated");
+  //     })
+  //     .catch((error) => {
+  //       console.error("Updated failed", error);
+  //     });
+  // };
 
   const deleteDocCompled = async (id: string, url: string): Promise<void> => {
-    deleteStorageFile(url);
+    // deleteStorageFile(url);
     await deleteDoc(doc(db, "archivos", id))
       .then(() => {
         console.log("File delete");
