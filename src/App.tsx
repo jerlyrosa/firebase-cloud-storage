@@ -10,14 +10,15 @@ import { useModal } from './hooks/useModal';
 
 function App() {
 
-  const { fileUrl, fileNanme, AddStorage } = useMethodStorage();
+  const { fileUrl, fileNanme, AddStorage, timeFile } = useMethodStorage();
 
-  const { addFirebase, deleteDocCompled, setAddUrl, docsData } = useMethodFirebase();
+  const { addFirebase, deleteDocCompled, setAddUrl, docsData } = useMethodFirebase(timeFile);
 
   useEffect(() => setAddUrl(fileUrl), [fileUrl,setAddUrl]);
 
   const { ModalView, openModal } = useModal()
 
+  console.log(timeFile)
 
   return (
     <main>
@@ -30,18 +31,27 @@ function App() {
 
           <div className="file is-large  has-name is-boxed">
             <label className="file-label">
-              <input className="file-input" type="file" onChange={(e) => AddStorage(e)} name="resume" />
+              <input className="file-input" required type="file" onChange={(e) => AddStorage(e)} name="resume" />
               <span className="file-cta">
                 <span className="file-label">
                   Choose a file…
                 </span>
+
               </span>
               <span className="file-name">
                 {fileNanme}
               </span>
+
             </label>
+
           </div>
           <input type="text" className='input is-medium' defaultValue="" name="name" placeholder='name your file' />
+          <div className="fileChoose">
+            {timeFile && timeFile !== undefined?(
+              'uploaded file !'
+            ): timeFile !== undefined &&  'loading file..' 
+          }
+             </div>
 
           <button className="generalBotton">Send</button>
 

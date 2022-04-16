@@ -9,10 +9,12 @@ import {
 import { SyntheticEvent, useEffect, useState } from "react";
 import { db } from "../config/firebaseV2";
 
-export const useMethodFirebase = () => {
+export const useMethodFirebase = (loadingTime?: boolean | undefined) => {
   const [addUrl, setAddUrl] = useState<string>("");
   const [docsData, setDocsData] = useState<object[] | undefined>(undefined);
+  // const { timeFile } = useMethodStorage();
 
+  // console.log(data)
   useEffect(() => {
     onSnapshot(collection(db, "archivos"), (doc) => {
       const data = doc.docs.map((doc) => [doc.id, doc.data()]);
@@ -36,8 +38,7 @@ export const useMethodFirebase = () => {
     let nameFile: string = !target.name?.value
       ? "Default Title"
       : target.name.value;
-
-    if (addUrl) {
+    if (addUrl !== "" && loadingTime) {
       await addDoc(collection(db, "archivos"), {
         name: nameFile,
         url: addUrl,
@@ -48,11 +49,8 @@ export const useMethodFirebase = () => {
         .catch((error) => {
           console.error("Upload failed", error);
         });
-    } else if (nameFile !== "Default Title") {
-      alert("Se esta cargando");
-    } else {
-      alert("Add a file");
-    }
+    } 
+
   };
 
   const updateName = async (id: string, data: string): Promise<void> => {

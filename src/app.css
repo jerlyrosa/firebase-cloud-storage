@@ -9,9 +9,21 @@
 
 .formStyles {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 40% 10% 50%;
+  grid-template-areas:
+    "col_1 col_2 col_2"
+    "col_3 col_ col_"
+    "col_4 col_ col_";
   align-items: center;
-  gap: 3rem;
+  gap: 0 3rem;
+}
+
+.file {
+  grid-area: col_1;
+}
+
+.input {
+  grid-area: col_2;
 }
 .contenedorUl {
   display: flex;
@@ -26,7 +38,7 @@
 }
 
 .contenedorUl > li {
-  max-width: 31rem;
+  max-width: 40rem;
   min-width: 31rem;
 }
 
@@ -44,7 +56,6 @@ a {
 .svgStyles {
   margin: 2rem 0;
 }
-
 
 .updateBotton {
   background-color: #111827;
@@ -75,7 +86,6 @@ a {
   background-color: #707680;
 }
 
-
 .deleteBotton {
   background-color: #111827;
   border: 1px solid transparent;
@@ -104,12 +114,26 @@ a {
 .deleteBotton:hover {
   background-color: #b31818;
   /* color: #111827; */
-
 }
 
+.fileChoose {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #777575;
+  padding: 0.5rem 0;
+  grid-area: col_3;
+  margin: 1rem;
+  background: #e6e6e636;
+}
 
 @media (max-width: 768px) {
   .formStyles {
     grid-template-columns: 100%;
+    grid-template-areas:
+    "col_1"
+    "col_2"
+    "col_3"
+    "col_4";
+    gap: 3rem;
   }
 }

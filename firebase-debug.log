@@ -26,3 +26,53 @@
 [info] i  firebase.storage: checking storage.rules for compilation errors... 
 [debug] [2022-04-15T01:00:23.529Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [none]
 [debug] [2022-04-15T01:00:23.529Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [omitted]
+[debug] [2022-04-16T03:56:36.304Z] ----------------------------------------------------------------------
+[debug] [2022-04-16T03:56:36.306Z] Command:       /home/jerly/.nvm/versions/node/v14.17.6/bin/node /home/jerly/.nvm/versions/node/v14.17.6/bin/firebase deploy
+[debug] [2022-04-16T03:56:36.306Z] CLI Version:   10.6.0
+[debug] [2022-04-16T03:56:36.306Z] Platform:      linux
+[debug] [2022-04-16T03:56:36.306Z] Node Version:  v14.17.6
+[debug] [2022-04-16T03:56:36.309Z] Time:          Fri Apr 15 2022 23:56:36 GMT-0400 (hora estándar del Atlántico)
+[debug] [2022-04-16T03:56:36.309Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-04-16T03:56:36.311Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-04-16T03:56:36.385Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-04-16T03:56:36.386Z] > authorizing via signed-in user (jerlymigueldelarosah@gmail.com)
+[debug] [2022-04-16T03:56:36.386Z] [iam] checking project fir-storage-9d162 for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2022-04-16T03:56:36.386Z] > refreshing access token with scopes: []
+[debug] [2022-04-16T03:56:36.387Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-04-16T03:56:36.822Z] <<< HTTP RESPONSE 200 {"pragma":"no-cache","date":"Sat, 16 Apr 2022 03:56:36 GMT","cache-control":"no-cache, no-store, max-age=0, must-revalidate","expires":"Mon, 01 Jan 1990 00:00:00 GMT","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-04-16T03:56:36.834Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions [none]
+[debug] [2022-04-16T03:56:36.835Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-04-16T03:56:36.843Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-04-16T03:56:36.844Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2022-04-16T03:56:37.139Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions 200
+[debug] [2022-04-16T03:56:37.139Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/fir-storage-9d162:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2022-04-16T03:56:37.142Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 [none]
+[debug] [2022-04-16T03:56:37.513Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 200
+[debug] [2022-04-16T03:56:37.514Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 {"projectId":"fir-storage-9d162","projectNumber":"341556277320","displayName":"firebase-storage","name":"projects/fir-storage-9d162","resources":{"hostingSite":"fir-storage-9d162","realtimeDatabaseInstance":"fir-storage-9d162-default-rtdb","storageBucket":"fir-storage-9d162.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[info] 
+[info] === Deploying to 'fir-storage-9d162'...
+[info] 
+[info] i  deploying storage, firestore, hosting 
+[debug] [2022-04-16T03:56:37.518Z] >>> [apiv2][query] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 [none]
+[debug] [2022-04-16T03:56:37.896Z] <<< [apiv2][status] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 200
+[debug] [2022-04-16T03:56:37.897Z] <<< [apiv2][body] GET https://appengine.googleapis.com/v1/apps/fir-storage-9d162 {"name":"apps/fir-storage-9d162","id":"fir-storage-9d162","authDomain":"gmail.com","locationId":"us-central","codeBucket":"staging.fir-storage-9d162.appspot.com","servingStatus":"SERVING","defaultHostname":"fir-storage-9d162.uc.r.appspot.com","defaultBucket":"fir-storage-9d162.appspot.com","serviceAccount":"fir-storage-9d162@appspot.gserviceaccount.com","gcrDomain":"us.gcr.io","databaseType":"CLOUD_FIRESTORE","featureSettings":{"splitHealthChecks":true,"useContainerOptimizedOs":true}}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2022-04-16T03:56:37.898Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [none]
+[debug] [2022-04-16T03:56:37.898Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [omitted]
+[debug] [2022-04-16T03:56:38.267Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test 200
+[debug] [2022-04-16T03:56:38.267Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test {}
+[info] ✔  firebase.storage: rules file storage.rules compiled successfully 
+[info] i  firestore: reading indexes from firestore.indexes.json... 
+[info] i  cloud.firestore: checking firestore.rules for compilation errors... 
+[debug] [2022-04-16T03:56:38.272Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [none]
+[debug] [2022-04-16T03:56:38.272Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test [omitted]
+[debug] [2022-04-16T03:56:38.541Z] <<< [apiv2][status] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test 200
+[debug] [2022-04-16T03:56:38.541Z] <<< [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/fir-storage-9d162:test {}
+[info] ✔  cloud.firestore: rules file firestore.rules compiled successfully 
+[debug] [2022-04-16T03:56:38.542Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 [none]
+[debug] [2022-04-16T03:56:38.869Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 200
+[debug] [2022-04-16T03:56:38.869Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fir-storage-9d162 {"projectId":"fir-storage-9d162","projectNumber":"341556277320","displayName":"firebase-storage","name":"projects/fir-storage-9d162","resources":{"hostingSite":"fir-storage-9d162","realtimeDatabaseInstance":"fir-storage-9d162-default-rtdb","storageBucket":"fir-storage-9d162.appspot.com","locationId":"us-central"},"state":"ACTIVE"}
+[debug] [2022-04-16T03:56:38.873Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/341556277320/sites/fir-storage-9d162/versions [none]
+[debug] [2022-04-16T03:56:38.873Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/341556277320/sites/fir-storage-9d162/versions {"config":{},"labels":{"deployment-tool":"cli-firebase"}}

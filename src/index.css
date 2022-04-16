@@ -37,6 +37,8 @@ footer {
 }
 
 .generalBotton {
+ 
+  grid-area: col_4;   /* grid-area: col_4;  el template esta declado en app.css*/
   background-color: #111827;
   border: 1px solid transparent;
   border-radius: 0.5rem;
