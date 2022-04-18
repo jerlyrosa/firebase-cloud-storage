@@ -18,6 +18,7 @@ const useModal = () => {
     const value = event.target.value;
     setIsInputValue(value)
 
+
   }
 
   const { updateName } = useMethodFirebase();
@@ -43,9 +44,7 @@ const useModal = () => {
   };
 
 
-
-
-  const ModalView = ():JSX.Element => {
+  const ModalView = (): JSX.Element => {
     return (
       <Container modal={isModal}>
 

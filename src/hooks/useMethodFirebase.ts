@@ -7,41 +7,50 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { db } from "../config/firebaseV2";
+import { db } from "../config/firebase";
+import { modelDataWiew, modelDataBase } from "../interface/interface";
+import { useMethodStorage } from "./useMethodStorage";
 
-export const useMethodFirebase = (loadingTime?: boolean | undefined) => {
-  const [addUrl, setAddUrl] = useState<string>("");
-  const [docsData, setDocsData] = useState<object[] | undefined>(undefined);
-  // const { timeFile } = useMethodStorage();
+export const useMethodFirebase = () => {
+  const COLLECTION: string = "archivos";
 
-  // console.log(data)
+  const [docsData, setDocsData] = useState<modelDataWiew[] | undefined>(
+    undefined
+  );
+  const { deleteStorageFile } = useMethodStorage();
+
   useEffect(() => {
-    onSnapshot(collection(db, "archivos"), (doc) => {
+    onSnapshot(collection(db, COLLECTION), (doc) => {
       const data = doc.docs.map((doc) => [doc.id, doc.data()]);
-      const docdata: object[] = [];
-      data.map((item) =>
+      const docdata: modelDataWiew[] = [];
+
+      data.map((item) => {
+        const { name, url } = item[1] as modelDataBase;
+        const id: string = item[0] as string;
+
         docdata.push({
-          id: item[0],
-          data: item[1],
-        })
-      );
+          id: id,
+          name: name as string,
+          url: url as string,
+        });
+        return 0 ;
+      });
       setDocsData(docdata);
     });
-  }, [setAddUrl]);
+  }, []);
 
-  const addFirebase = async (e: SyntheticEvent): Promise<void> => {
+  const addFirebase = async (e: SyntheticEvent, url: string): Promise<void> => {
     e.preventDefault();
-
     const target = e.target as typeof e.target & {
       name: { value: string };
     };
     let nameFile: string = !target.name?.value
       ? "Default Title"
       : target.name.value;
-    if (addUrl !== "" && loadingTime) {
-      await addDoc(collection(db, "archivos"), {
+    if (url !== "") {
+      await addDoc(collection(db, COLLECTION), {
         name: nameFile,
-        url: addUrl,
+        url: url,
       })
         .then(() => {
           console.log("File available");
@@ -49,15 +58,12 @@ export const useMethodFirebase = (loadingTime?: boolean | undefined) => {
         .catch((error) => {
           console.error("Upload failed", error);
         });
-    } 
-
+    }
   };
 
   const updateName = async (id: string, data: string): Promise<void> => {
-    console.log(data);
-
     if (data.length > 0 && data.trim() !== "") {
-      const washingtonRef = doc(db, "archivos", id);
+      const washingtonRef = doc(db, COLLECTION, id);
       await updateDoc(washingtonRef, {
         name: data,
       })
@@ -70,25 +76,14 @@ export const useMethodFirebase = (loadingTime?: boolean | undefined) => {
     }
   };
 
-  // const GetInput=(e: SyntheticEvent):any =>{
-
-  // }
-  // GetInput(da)
-
-  //   await updateDoc(washingtonRef, {
-  //     name: "Default",
-  //   })
-  //     .then(() => {
-  //       console.log("File updated");
-  //     })
-  //     .catch((error) => {
-  //       console.error("Updated failed", error);
-  //     });
-  // };
-
   const deleteDocCompled = async (id: string, url: string): Promise<void> => {
-    // deleteStorageFile(url);
-    await deleteDoc(doc(db, "archivos", id))
+    console.log("sin url", url);
+
+    const find = docsData?.filter((item) => item.id !== id && item.url);
+
+    if (find?.length === 0) deleteStorageFile(url);
+
+    await deleteDoc(doc(db, COLLECTION, id))
       .then(() => {
         console.log("File delete");
       })
@@ -98,7 +93,6 @@ export const useMethodFirebase = (loadingTime?: boolean | undefined) => {
   };
 
   return {
-    setAddUrl,
     addFirebase,
     updateName,
     deleteDocCompled,

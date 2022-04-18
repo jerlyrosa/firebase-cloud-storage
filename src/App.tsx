@@ -1,24 +1,29 @@
-import { useEffect } from 'react';
+import { SyntheticEvent } from 'react';
 import './app.css';
 import 'bulma/css/bulma.min.css';
 import { IconCloud } from './icons/icons';
 import { useMethodStorage } from './hooks/useMethodStorage';
-import { modelData } from './interface/interface';
+import { modelDataWiew } from './interface/interface';
 import { useMethodFirebase } from './hooks/useMethodFirebase';
 import { useModal } from './hooks/useModal';
 
 
 function App() {
 
-  const { fileUrl, fileNanme, AddStorage, timeFile } = useMethodStorage();
+  const { fileNanme, GetFiles, timeFile, AddStorage } = useMethodStorage();
 
-  const { addFirebase, deleteDocCompled, setAddUrl, docsData } = useMethodFirebase(timeFile);
-
-  useEffect(() => setAddUrl(fileUrl), [fileUrl,setAddUrl]);
-
+  const { addFirebase, deleteDocCompled, docsData } = useMethodFirebase();
   const { ModalView, openModal } = useModal()
 
-  console.log(timeFile)
+
+  const onSummitFuntion = (e: SyntheticEvent): void => {
+    AddStorage(e).then((url) => {
+      addFirebase(e, url as string)
+
+
+    })
+
+  }
 
   return (
     <main>
@@ -27,11 +32,11 @@ function App() {
           <IconCloud />
         </div>
         <h1>Upload File to Cloud Storage</h1>
-        <form onSubmit={addFirebase} className="formStyles">
+        <form onSubmit={onSummitFuntion} className="formStyles">
 
           <div className="file is-large  has-name is-boxed">
             <label className="file-label">
-              <input className="file-input" required type="file" onChange={(e) => AddStorage(e)} name="resume" />
+              <input className="file-input" required type="file" onChange={(e) => GetFiles(e)} name="resume" />
               <span className="file-cta">
                 <span className="file-label">
                   Choose a file…
@@ -47,11 +52,11 @@ function App() {
           </div>
           <input type="text" className='input is-medium' defaultValue="" name="name" placeholder='name your file' />
           <div className="fileChoose">
-            {timeFile && timeFile !== undefined?(
+            {timeFile && timeFile !== undefined ? (
               'uploaded file !'
-            ): timeFile !== undefined &&  'loading file..' 
-          }
-             </div>
+            ) : timeFile !== undefined && 'loading file..'
+            }
+          </div>
 
           <button className="generalBotton">Send</button>
 
@@ -65,15 +70,10 @@ function App() {
 
             docsData.length !== 0 ? (
 
-              docsData.map((doc: object, index: number) => {
-                const {
-                  id,
-                  data: {
-                    name,
-                    url
-                  }
+              docsData.map((doc: modelDataWiew, index: number) => {
 
-                } = doc as modelData
+                const { id, name, url } = doc
+
                 return (
                   <li key={index}>
                     <h3>{name}</h3>

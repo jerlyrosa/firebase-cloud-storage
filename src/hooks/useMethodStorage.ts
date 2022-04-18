@@ -3,84 +3,74 @@ import {
   ref,
   uploadBytes,
   getDownloadURL,
+  deleteObject,
 } from "firebase/storage";
-import { ChangeEvent,  useState } from "react";
-
+import { ChangeEvent, useState, SyntheticEvent } from "react";
 
 type InputElemnt = ChangeEvent<HTMLInputElement>;
 
 export const useMethodStorage = () => {
-
   const [fileUrl, setFileUrl] = useState<string>("");
-  const [fileNanme, setFileNanme] = useState<string>("");
+  const [fileNanme, setFileNanme] = useState<string>();
   const [timeFile, setTime] = useState<boolean | undefined>(undefined);
-
-  // console.log(time !== undefined ? time ? "se caragdo": "cargando":" estado base"  )
+  const [file, setFile] = useState<File>();
 
   const storage = getStorage();
 
-  const AddStorage = async (e: InputElemnt): Promise<void> => {
+  const GetFiles = async (e: InputElemnt): Promise<void> => {
     const file = e.target.files![0];
-    setTime(false)
-
+    setFile(file);
     setFileNanme(file.name);
-    const fileRef = ref(storage, file.name);
-    await uploadBytes(fileRef, file)
-      .then(() => {
-        console.log("Uploaded a blob or file!");
-        getDownloadURL(ref(fileRef))
-        .then((url) => {
-          setFileUrl(url);
-          setTime(true)
-          console.log("File available at", url);
-        })
-        .catch((error) => {
-          console.error("Upload failed", error);
-        });
-
-      })
-      .catch((error) => {
-        console.error("Error adding document", error);
-      });
-
-      // setTime(undefined)
-    // await getDownloadURL(ref(fileRef))
-    //   .then((url) => {
-    //     setFileUrl(url);
-
-    //     console.log("File available at", url);
-
-    //   })
-    //   .catch((error) => {
-    //     console.error("Upload failed", error);
-    //   });
-
-
-
-     
   };
 
+  const AddStorage = async (e: SyntheticEvent) => {
+    e.preventDefault();
 
+    if (file) {
+      setTime(false);
 
-  // const deleteStorageFile = (url: string) => {
-  //   const desertRef = ref(storage, url);
-  //   deleteObject(desertRef)
-  //     .then(() => {
-  //       console.log("File deleted successfully");
-  //     })
-  //     .catch((error) => {
-  //       console.log("Uh-oh, an error occurred!", error);
-  //     });
-  // };
+      const fileRef = ref(storage, file.name);
+
+      const url = await uploadBytes(fileRef, file)
+        .then((item) => {
+          console.log("Uploaded a blob or file!");
+          return getDownloadURL(ref(fileRef))
+            .then((url) => {
+              setFileUrl(url);
+              setTime(true);
+              console.log("File available at", url);
+              return url;
+            })
+            .catch((error) => {
+              console.error("Upload failed", error);
+            });
+        })
+        .catch((error) => {
+          console.error("Error adding document", error);
+        });
+      return url;
+    }
+  };
+
+  const deleteStorageFile = (url: string) => {
+    const desertRef = ref(storage, url);
+    deleteObject(desertRef)
+      .then(() => {
+        console.log("File deleted successfully");
+      })
+      .catch((error) => {
+        console.log("Uh-oh, an error occurred!", error);
+      });
+  };
 
   return {
     fileUrl,
     fileNanme,
-    AddStorage,
+    setFileNanme,
+    GetFiles,
     storage,
-    timeFile
-    // deleteStorageFile,
+    timeFile,
+    deleteStorageFile,
+    AddStorage,
   } as const;
 };
-
-
