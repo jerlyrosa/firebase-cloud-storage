@@ -1,4 +1,4 @@
-# firebase-storage
+# Cloud Storage
 
 ## Descripción
 
@@ -113,4 +113,4 @@ Después de ello, carga los cambios ejecutando:
 
 
 
-### *firebase-storage: [deploy](https://fir-storage-9d162.web.app/)*
+### *Cloud Storage: [deploy](https://fir-storage-9d162.web.app/)*
